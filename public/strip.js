@@ -208,5 +208,86 @@ const Strip = (() => {
     return c;
   }
 
-  return { render, FILTERS };
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+  function pickMime() {
+    if (typeof MediaRecorder === 'undefined' || !MediaRecorder.isTypeSupported) return '';
+    for (const o of ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm', 'video/mp4']) {
+      if (MediaRecorder.isTypeSupported(o)) return o;
+    }
+    return '';
+  }
+
+  // Boomerang: the captured shots played forward then back, both faces side by side,
+  // rendered on-device to a downloadable clip. Returns { blob, ext } or null if the
+  // browser can't record canvas video.
+  async function boomerang({ left, right, filter }) {
+    const mime = pickMime();
+    if (!mime || typeof HTMLCanvasElement.prototype.captureStream !== 'function') return null;
+
+    const n = Math.min(left.length, right.length);
+    if (!n) return null;
+
+    const imgs = [];
+    for (let i = 0; i < n; i++) {
+      imgs.push({ l: await createImageBitmap(left[i]), r: await createImageBitmap(right[i]) });
+    }
+
+    // ping-pong order, no duplicated endpoints: 0..n-1, n-2..1, 0
+    const order = [];
+    for (let i = 0; i < n; i++) order.push(i);
+    for (let i = n - 2; i >= 1; i--) order.push(i);
+    if (n > 1) order.push(0);
+
+    const W = 640, H = 480, half = W / 2, gap = 4;
+    const c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    const g = c.getContext('2d');
+
+    const drawSide = (img, x) => {
+      const cw = half - gap / 2;
+      const s = Math.max(cw / img.width, H / img.height);
+      const dw = img.width * s, dh = img.height * s;
+      g.save();
+      g.beginPath();
+      g.rect(x, 0, cw, H);
+      g.clip();
+      g.fillStyle = '#100f0d';
+      g.fillRect(x, 0, cw, H);
+      g.filter = CSS[filter] || 'none';
+      g.drawImage(img, x - (dw - cw) / 2, -(dh - H) / 2, dw, dh);
+      g.filter = 'none';
+      g.restore();
+    };
+
+    const draw = (i) => {
+      drawSide(imgs[i].l, 0);
+      drawSide(imgs[i].r, half + gap / 2);
+      g.fillStyle = PAPER;
+      g.fillRect(half - gap / 2, 0, gap, H);
+    };
+
+    const stream = c.captureStream(30);
+    const rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 3000000 });
+    const chunks = [];
+    rec.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
+    const done = new Promise((res) => { rec.onstop = res; });
+
+    draw(order[0]);
+    rec.start();
+    await sleep(450);
+    for (let k = 1; k < order.length; k++) {
+      draw(order[k]);
+      await sleep(300);
+    }
+    await sleep(250); // hold the last frame so the loop reads
+    rec.stop();
+    await done;
+    stream.getTracks().forEach((t) => t.stop());
+    imgs.forEach((f) => { f.l.close && f.l.close(); f.r.close && f.r.close(); });
+
+    return { blob: new Blob(chunks, { type: mime }), ext: mime.includes('mp4') ? 'mp4' : 'webm' };
+  }
+
+  return { render, boomerang, FILTERS };
 })();

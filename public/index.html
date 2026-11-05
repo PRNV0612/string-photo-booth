@@ -48,6 +48,8 @@
       </div>
     </div>
 
+    <div id="resumeBanner" class="resume" role="status">reconnecting to your booth&hellip;</div>
+
     <p class="privacy">
       Video and photos travel <em>device-to-device</em>, end-to-end encrypted.<br />
       The server only helps you find each other — it never sees a picture.
@@ -82,22 +84,39 @@
   <section id="scr-booth" class="scr">
     <div class="topbar">
       <div class="names" id="boothNames">you &amp; your person</div>
-      <div class="status" id="linkStatus">connecting…</div>
+      <div class="controls">
+        <button id="btnMic" class="ctl" type="button" aria-label="mute microphone" title="mute your mic">🎙️</button>
+        <button id="btnSound" class="ctl" type="button" aria-label="mute their audio" title="mute their audio">🔊</button>
+        <button id="btnGames" class="ctl" type="button" aria-label="toggle pose prompts" title="pose prompts">🎲</button>
+        <span class="status" id="linkStatus">connecting…</span>
+      </div>
     </div>
 
-    <div class="stage">
-      <video id="selfVid" autoplay playsinline muted></video>
-      <div class="pip">
-        <video id="peerVid" autoplay playsinline></video>
-        <span id="pipName">your person</span>
+    <div class="boothgrid">
+      <div class="stage" id="stage">
+        <video id="selfVid" autoplay playsinline muted></video>
+        <div class="pip">
+          <video id="peerVid" autoplay playsinline></video>
+          <span id="pipName">your person</span>
+        </div>
+        <div id="countdown"></div>
+        <div id="prompt"></div>
+        <div id="flash"></div>
       </div>
-      <div id="countdown"></div>
-      <div id="flash"></div>
+      <aside class="preview" aria-label="shot preview">
+        <div class="preview-head">
+          <span>shots</span>
+          <span class="preview-legend"><i class="you"></i>you <i class="them"></i>them</span>
+        </div>
+        <div class="preview-rows" id="previewRows"></div>
+      </aside>
     </div>
 
     <div class="dock">
+      <div class="reacts" id="reacts" aria-label="send a reaction"></div>
       <div class="filters" id="filterChips"></div>
       <div class="dots" id="frameDots"><i></i><i></i><i></i><i></i></div>
+      <button id="btnResumeStrip" class="btn ghost" hidden>View last strip</button>
       <button id="btnStart" class="btn primary big" disabled>
         <span class="rec"></span> Start the countdown
       </button>
@@ -109,11 +128,22 @@
   <!-- ============ STRIP ============ -->
   <section id="scr-strip" class="scr">
     <p class="kicker">it's a wrap — yours to keep</p>
-    <div class="stripwrap"><div id="stripHolder"></div></div>
+    <div class="stripgrid">
+      <div class="stripwrap"><div id="stripHolder"></div></div>
+      <aside class="callcard">
+        <div class="stage-mini">
+          <video id="peerVidStrip" autoplay playsinline muted></video>
+          <span id="peerVidStripLabel">your person</span>
+        </div>
+        <button id="btnKeepTalk" class="btn primary">Keep talking</button>
+        <p class="hint">the line stays open — jump back to shoot again anytime</p>
+      </aside>
+    </div>
     <div class="dock">
       <div class="filters" id="filterChips2"></div>
       <div class="row center">
         <button id="btnDownload" class="btn primary">Download strip</button>
+        <button id="btnBoomerang" class="btn ghost">Boomerang</button>
         <button id="btnAgain" class="btn ghost">Shoot again</button>
         <button id="btnHome3" class="btn text">done</button>
       </div>

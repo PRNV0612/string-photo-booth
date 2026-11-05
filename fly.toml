@@ -1,0 +1,50 @@
+# string — Fly.io app config
+# Rename `app` to a globally-unique name (or let `fly launch` set it).
+app = "string-booth"
+primary_region = "lhr"          # London. Signaling latency is only felt at join;
+                                # media is peer-to-peer, so region matters most for TURN.
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+  force_https = true            # TLS on *.fly.dev -> satisfies getUserMedia + wss
+  auto_stop_machines = "stop"   # scale to zero when idle (near-$0)
+  auto_start_machines = true    # cold start on next request/new WS connection
+  min_machines_running = 0      # set to 1 for always-on (~$1.94/mo, no cold start)
+  processes = ["app"]
+
+  # An open WebSocket counts as an active connection, so a live booth is not
+  # auto-stopped mid-session. Raise the limits if you expect more concurrent pairs.
+  [http_service.concurrency]
+    type = "connections"
+    hard_limit = 200
+    soft_limit = 100
+
+  [[http_service.checks]]
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "10s"
+    method = "GET"
+    path = "/"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "256mb"
+
+# Rooms are an in-memory Map (server.js) -> keep exactly ONE machine.
+# Do NOT add `strategy = ...` autoscaling beyond 1, or pairing breaks.
+
+# --- TURN (optional) ---------------------------------------------------------
+# For symmetric-NAT/CGNAT pairs (e.g. Dubai <-> London on mobile), you need a
+# relay. Two ways:
+#   (a) Easiest + cheapest to start: use a managed TURN (OpenRelay free tier,
+#       or Metered/Twilio) and just add its ICE servers in public/app.js. No
+#       extra Fly machine needed.
+#   (b) Self-host coturn on a SECOND fly app with UDP allocated (Fly supports
+#       raw UDP, unlike Render/Railway/DO App Platform). That app needs a
+#       dedicated IPv4 and UDP port bindings — more setup + a small monthly cost.

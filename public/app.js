@@ -11,13 +11,23 @@ const ICE = {
   iceServers: [{ urls: ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302'] }],
 };
 
+// Playful pose prompts, shown in sync on both screens (picked from room code + shot time)
+const PROMPTS = [
+  'biggest fake laugh', 'surprise face', 'make heart hands', 'best goofy grin',
+  'wave hello', 'lean in close', 'kiss the camera', 'cool-guy pose',
+  'show your pet or plant', 'one eyebrow up', 'air guitar', 'peace sign',
+];
+const REACTIONS = ['❤️', '😘', '👋', '🥳', '😍', '🤞'];
+
 const S = {
   ws: null, pc: null, dc: null,
   code: '', name: '', peerName: '', role: '',
-  localStream: null,
+  localStream: null, micTrack: null,
   own: [], peer: [], parts: new Map(),
   offset: 0, running: false, timers: [], cdInt: 0,
   filter: 'retro', sessionDate: null, autoTries: 0, leaving: false, peerHidden: false,
+  micOn: true, soundOn: true, gamesOn: true, t0: 0, promptShown: -1,
+  shooting: false, pvUrls: [], runId: 0, initiated: false,
 };
 
 /* ---------------- helpers ---------------- */
@@ -52,17 +62,88 @@ function genCode() {
   return c;
 }
 
+/* ---------------- session persistence (survive a page refresh) ---------------- */
+
+const SS_KEY = 'string:session';
+function saveSessionMeta() {
+  try { sessionStorage.setItem(SS_KEY, JSON.stringify({ name: S.name, code: S.code })); } catch {}
+}
+function clearSessionMeta() {
+  try { sessionStorage.removeItem(SS_KEY); } catch {}
+}
+function readSessionMeta() {
+  try { return JSON.parse(sessionStorage.getItem(SS_KEY) || 'null'); } catch { return null; }
+}
+
+// On-device photo store. A refresh tears down WebRTC, but frames already captured
+// live here so nothing is lost. Blobs are stored directly (structured clone).
+let _dbp = null;
+function openDB() {
+  if (_dbp) return _dbp;
+  _dbp = new Promise((res, rej) => {
+    if (typeof indexedDB === 'undefined') return rej(new Error('no indexedDB'));
+    const rq = indexedDB.open('string', 1);
+    rq.onupgradeneeded = () => rq.result.createObjectStore('sessions', { keyPath: 'code' });
+    rq.onsuccess = () => res(rq.result);
+    rq.onerror = () => rej(rq.error);
+  });
+  return _dbp;
+}
+
+const dense = (arr) => Array.from({ length: FRAMES }, (_, i) => (arr[i] ? arr[i] : null));
+
+async function storeFrames() {
+  if (!S.code) return;
+  try {
+    const db = await openDB();
+    const tx = db.transaction('sessions', 'readwrite');
+    tx.objectStore('sessions').put({
+      code: S.code,
+      name: S.name,
+      peerName: S.peerName,
+      date: (S.sessionDate || new Date()).toISOString(),
+      filter: S.filter,
+      own: dense(S.own),
+      peer: dense(S.peer),
+    });
+  } catch {}
+}
+
+async function dropStored() {
+  if (!S.code) return;
+  try {
+    const db = await openDB();
+    db.transaction('sessions', 'readwrite').objectStore('sessions').delete(S.code);
+  } catch {}
+}
+
+async function loadStored(code) {
+  try {
+    const db = await openDB();
+    const rq = db.transaction('sessions', 'readonly').objectStore('sessions').get(code);
+    return await new Promise((res) => { rq.onsuccess = () => res(rq.result || null); rq.onerror = () => res(null); });
+  } catch { return null; }
+}
+
 /* ---------------- camera ---------------- */
 
 async function ensureCam() {
   if (S.localStream) return true;
+  const video = { width: 1280, height: 960, facingMode: 'user' };
   try {
-    S.localStream = await navigator.mediaDevices.getUserMedia({
-      video: { width: 1280, height: 960, facingMode: 'user' },
-      audio: false,
-    });
+    // Prefer video + audio; fall back to video-only if the mic is denied/blocked
+    // so losing the voice feature never blocks the booth.
+    try {
+      S.localStream = await navigator.mediaDevices.getUserMedia({ video, audio: true });
+    } catch (e) {
+      S.localStream = await navigator.mediaDevices.getUserMedia({ video, audio: false });
+      S.micOn = false;
+    }
+    S.micTrack = S.localStream.getAudioTracks()[0] || null;
+    if (S.micTrack) S.micTrack.enabled = S.micOn;
     $('#waitVid').srcObject = S.localStream;
     $('#selfVid').srcObject = S.localStream;
+    syncMicBtn();
     return true;
   } catch {
     toast('camera blocked — allow access in your browser, then try again');
@@ -94,6 +175,7 @@ async function onMsg(m) {
     case 'joined':
       S.code = m.code;
       S.role = m.role;
+      saveSessionMeta();
       screen('wait');
       $('#bigCode').textContent = m.code;
       $('#shareLink').value = location.origin + '/?c=' + m.code;
@@ -105,7 +187,8 @@ async function onMsg(m) {
       if (!S.peerName) {
         // partner dropped; room kept open for their return
         setStatus('waiting for your person to rejoin…', 'bad');
-        $('#btnStart').disabled = true;
+        S.shooting = false;
+        updateStartBtn();
         teardownPC();
         return;
       }
@@ -115,6 +198,7 @@ async function onMsg(m) {
       await ensureCam();
       screen('booth');
       await setupPC();
+      syncClock(); // warm the server-clock offset on BOTH sides, not just who presses Start
       break;
     }
 
@@ -142,19 +226,32 @@ async function onMsg(m) {
       handleTime(m);
       break;
 
-    case 'scheduled':
+    case 'scheduled': {
       S.sessionDate = new Date();
+      // Only the initiator can cancel its own run; a late schedule from a stopped
+      // run carries an old rid and is ignored. The partner (by !== my name) always
+      // runs. If the server didn't stamp a rid (older build), don't block the run.
+      if (m.by === S.name && m.rid !== undefined && m.rid !== S.runId) return;
+      S.initiated = (m.by === S.name);
       runSession(m.t0);
+      break;
+    }
+
+    case 'session-cancel':
+      // the partner stopped the run; tear it down locally (we didn't initiate, so no re-broadcast)
+      if (!S.initiated && (S.running || S.shooting)) stopSession();
       break;
 
     case 'peer-left':
-      $('#btnStart').disabled = true;
+      S.shooting = false;
+      updateStartBtn();
       setStatus('your person disconnected — waiting for them to rejoin', 'bad');
       toast(`${S.peerName || 'your partner'} dropped off the line`);
       teardownPC();
       break;
 
     case 'room-closed':
+      clearSessionMeta();
       teardownPC();
       screen('home');
       toast('your partner ended the session — start a new booth anytime');
@@ -179,7 +276,9 @@ function teardownPC() {
   try { S.dc && S.dc.close(); } catch {}
   try { S.pc && S.pc.close(); } catch {}
   S.dc = S.pc = null;
+  S.shooting = false;
   resetFrames();
+  updateStartBtn();
 }
 
 async function setupPC() {
@@ -191,7 +290,16 @@ async function setupPC() {
   pc.onicecandidate = (e) => {
     if (e.candidate) wsSend({ t: 'signal', d: { cand: e.candidate } });
   };
-  pc.ontrack = (e) => { $('#peerVid').srcObject = e.streams[0]; };
+  pc.ontrack = (e) => {
+    const pv = $('#peerVid');
+    pv.srcObject = e.streams[0];
+    pv.muted = !S.soundOn;
+    // Remote audio can be blocked by autoplay policy until a gesture; the button
+    // is the reliable unstick path, this is best-effort.
+    const p = pv.play && pv.play();
+    if (p && p.catch) p.catch(() => {});
+    syncSoundBtn();
+  };
   pc.ondatachannel = (e) => setupDC(e.channel);
   pc.onconnectionstatechange = () => {
     const st = pc.connectionState;
@@ -213,8 +321,8 @@ async function setupPC() {
 
 function setupDC(dc) {
   S.dc = dc;
-  dc.onopen = () => { $('#btnStart').disabled = S.running; };
-  dc.onclose = () => { $('#btnStart').disabled = true; };
+  dc.onopen = () => { updateStartBtn(); };
+  dc.onclose = () => { updateStartBtn(); };
   dc.onmessage = (e) => onFrameMsg(e.data);
 }
 
@@ -247,6 +355,7 @@ async function sendFrame(i, blob) {
 function onFrameMsg(raw) {
   let m;
   try { m = JSON.parse(raw); } catch { return; }
+  if (m.k === 'react') { showReact(m.e); return; }
   if (m.k === 'v') {
     S.peerHidden = !!m.hidden;
     toast(S.peerHidden
@@ -261,6 +370,8 @@ function onFrameMsg(raw) {
     if (!p) return;
     S.parts.delete(m.id);
     S.peer[p.i] = new Blob(p.chunks, { type: 'image/jpeg' });
+    setThumb('r', p.i, S.peer[p.i]);
+    storeFrames();
     checkComplete();
   }
 }
@@ -307,25 +418,34 @@ function syncClock() {
 const syncNow = () => Date.now() + S.offset;
 
 async function startSession() {
-  if (S.running || !S.dc || S.dc.readyState !== 'open') return;
+  if (S.shooting || !S.dc || S.dc.readyState !== 'open') return;
   if (S.peerHidden) toast('your partner\'s tab looks hidden — the countdown works best when you both watch your screens');
-  $('#btnStart').disabled = true;
+  S.shooting = true;
+  updateStartBtn();
   // preflight: fail fast if this side's camera is dead/black
   if (!(await grabFrame())) {
+    S.shooting = false;
+    updateStartBtn();
     toast(S.lastGrabFail === 'black'
       ? 'your camera is sending black frames — is another app using it? (macOS allows only one at a time)'
       : 'no camera frame yet — check the camera permission and try again');
-    $('#btnStart').disabled = false;
     return;
   }
   await syncClock();
-  wsSend({ t: 'schedule', t0: syncNow() + LEAD });
+  S.runId++;
+  S.initiated = true;
+  wsSend({ t: 'schedule', t0: syncNow() + LEAD, rid: S.runId });
 }
 
 function runSession(t0) {
-  if (S.running) return;
+  if (S.running) return; // already mid-session
   resetFrames();
+  dropStored(); // a fresh run starts with no stored photos
   S.running = true; // must come AFTER resetFrames, which clears it
+  S.shooting = true; // both sides show the Stop control while the session runs
+  updateStartBtn();
+  S.t0 = t0;
+  S.promptShown = -1;
   screen('booth');
 
   for (let i = 0; i < FRAMES; i++) {
@@ -335,7 +455,7 @@ function runSession(t0) {
 
   const cd = $('#countdown');
   const tick = () => {
-    if (!S.running) { cd.textContent = ''; return; }
+    if (!S.running) { cd.textContent = ''; $('#prompt').textContent = ''; return; }
     const now = syncNow();
     let label = '';
     for (let i = 0; i < FRAMES; i++) {
@@ -343,6 +463,7 @@ function runSession(t0) {
       if (rem > 0 && rem <= 3000) { label = String(Math.ceil(rem / 1000)); break; }
     }
     cd.textContent = label;
+    updatePrompt(now);
     // setTimeout chain instead of rAF: keeps ticking in unfocused windows,
     // where requestAnimationFrame is paused entirely
     S.cdInt = setTimeout(tick, 120);
@@ -415,6 +536,8 @@ async function capture(i, attempt) {
     return;
   }
   S.own[i] = blob;
+  setThumb('l', i, blob);
+  storeFrames();
   document.querySelectorAll('#frameDots i')[i].classList.add('done');
   flash();
   shutter();
@@ -427,8 +550,11 @@ async function capture(i, attempt) {
 
 function endSession() {
   S.running = false;
+  S.shooting = false;
   clearTimeout(S.cdInt);
   $('#countdown').textContent = '';
+  $('#prompt').textContent = '';
+  updateStartBtn();
 }
 
 function giveUpSession() {
@@ -491,6 +617,11 @@ async function renderStrip() {
   const holder = $('#stripHolder');
   holder.innerHTML = '';
   holder.appendChild(canvas);
+  // keep the live call visible on the results screen (audio still comes from #peerVid)
+  const ps = $('#peerVidStrip');
+  if (ps) ps.srcObject = $('#peerVid').srcObject;
+  const lbl = $('#peerVidStripLabel');
+  if (lbl) lbl.textContent = S.peerName || 'your person';
 }
 
 function resetFrames() {
@@ -501,7 +632,11 @@ function resetFrames() {
   S.timers = [];
   clearTimeout(S.cdInt);
   S.running = false;
+  S.promptShown = -1;
+  const pr = $('#prompt'); if (pr) pr.textContent = '';
   document.querySelectorAll('#frameDots i').forEach((d) => d.classList.remove('done'));
+  revokePreview();
+  buildPreview();
 }
 
 /* ---------------- filter chips ---------------- */
@@ -522,6 +657,172 @@ function buildChips() {
       box.appendChild(b);
     }
   }
+}
+
+/* ---------------- voice controls ---------------- */
+
+function syncMicBtn() {
+  const b = $('#btnMic');
+  if (!b) return;
+  const has = !!S.micTrack;
+  b.disabled = !has;
+  b.classList.toggle('off', !S.micOn || !has);
+  b.title = has ? (S.micOn ? 'mute your mic' : 'unmute your mic') : 'no microphone';
+}
+
+function toggleMic() {
+  if (!S.micTrack) return;
+  S.micOn = !S.micOn;
+  S.micTrack.enabled = S.micOn;
+  syncMicBtn();
+}
+
+function syncSoundBtn() {
+  const b = $('#btnSound');
+  if (!b) return;
+  b.classList.toggle('off', !S.soundOn);
+  b.title = S.soundOn ? 'mute their audio' : 'unmute their audio';
+}
+
+function toggleSound() {
+  S.soundOn = !S.soundOn;
+  const pv = $('#peerVid');
+  pv.muted = !S.soundOn;
+  if (S.soundOn) { const p = pv.play && pv.play(); if (p && p.catch) p.catch(() => {}); }
+  syncSoundBtn();
+}
+
+/* ---------------- reactions (over the DataChannel) ---------------- */
+
+function sendReact(emoji) {
+  if (!S.dc || S.dc.readyState !== 'open') return;
+  S.dc.send(JSON.stringify({ k: 'react', e: emoji }));
+  showReact(emoji);
+}
+
+function showReact(emoji) {
+  const stage = $('#stage');
+  if (!stage) return;
+  const b = document.createElement('span');
+  b.className = 'react-bubble';
+  b.textContent = emoji;
+  b.style.left = (12 + Math.random() * 76) + '%';
+  stage.appendChild(b);
+  setTimeout(() => b.remove(), 2600);
+}
+
+/* ---------------- pose prompts (deterministic, no negotiation) ---------------- */
+
+function hashStr(s) {
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+
+// Both peers hold the identical room code and the identical server t0, so the
+// same (code, shot) always maps to the same prompt on both screens — no message needed.
+function promptFor(i) {
+  const nonce = Math.floor((S.t0 + i * GAP) / 60000);
+  return PROMPTS[(hashStr(S.code + ':' + nonce) + i) % PROMPTS.length];
+}
+
+function updatePrompt(now) {
+  const el = $('#prompt');
+  if (!el) return;
+  if (!S.gamesOn) { el.textContent = ''; S.promptShown = -1; return; }
+  let nextI = -1;
+  for (let i = 0; i < FRAMES; i++) { if (S.t0 + i * GAP > now) { nextI = i; break; } }
+  if (nextI < 0) { el.textContent = ''; S.promptShown = -1; return; }
+  if (nextI !== S.promptShown) {
+    el.textContent = 'shot ' + (nextI + 1) + ' of ' + FRAMES + ' — ' + promptFor(nextI);
+    S.promptShown = nextI;
+  }
+}
+
+/* ---------------- boomerang (downloadable clip from the captured frames) ---------------- */
+
+async function downloadBoomerang() {
+  const btn = $('#btnBoomerang');
+  if (!btn || btn.disabled) return;
+  const left = S.own.filter(Boolean), right = S.peer.filter(Boolean);
+  if (!left.length) return;
+  btn.disabled = true;
+  const label = btn.textContent;
+  btn.textContent = 'Making…';
+  try {
+    const res = await Strip.boomerang({ left, right, filter: S.filter });
+    if (!res) { toast('this browser can’t record video — try Chrome or Firefox'); return; }
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(res.blob);
+    a.download = `string-${S.code || 'boomerang'}.${res.ext}`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 8000);
+  } catch (e) {
+    console.warn('boomerang', e);
+    toast('couldn’t make the boomerang this time');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = label;
+  }
+}
+
+/* ---------------- shot preview rail ---------------- */
+
+function buildPreview() {
+  const box = $('#previewRows');
+  if (!box) return;
+  box.innerHTML = '';
+  for (let i = 0; i < FRAMES; i++) {
+    const row = document.createElement('div');
+    row.className = 'pv-row';
+    row.innerHTML =
+      '<span class="pv-n">' + (i + 1) + '</span>' +
+      '<div class="pv-cell"><img data-side="l" data-i="' + i + '" alt="your shot ' + (i + 1) + '"></div>' +
+      '<div class="pv-cell"><img data-side="r" data-i="' + i + '" alt="their shot ' + (i + 1) + '"></div>';
+    box.appendChild(row);
+  }
+}
+
+function setThumb(side, i, blob) {
+  const img = document.querySelector('#previewRows img[data-side="' + side + '"][data-i="' + i + '"]');
+  if (!img || !blob) return;
+  const url = URL.createObjectURL(blob);
+  S.pvUrls.push(url);
+  img.src = url;
+  img.classList.add('filled');
+}
+
+function revokePreview() {
+  S.pvUrls.forEach((u) => URL.revokeObjectURL(u));
+  S.pvUrls = [];
+}
+
+/* ---------------- start / stop ---------------- */
+
+function updateStartBtn() {
+  const b = $('#btnStart');
+  if (!b) return;
+  const open = S.dc && S.dc.readyState === 'open';
+  if (S.shooting) {
+    b.disabled = false;
+    b.classList.add('is-stop');
+    b.innerHTML = '<span class="rec"></span> Stop';
+  } else {
+    b.classList.remove('is-stop');
+    b.innerHTML = '<span class="rec"></span> Start the countdown';
+    b.disabled = !open;
+  }
+}
+
+function stopSession() {
+  if (!S.shooting) return;
+  S.shooting = false;
+  S.runId++; // invalidate any schedule still in flight from this run
+  if (S.initiated) wsSend({ t: 'cancel' }); // partner stops too
+  resetFrames(); // clears timers, frames, dots, prompt — and rebuilds an empty preview
+  $('#countdown').textContent = '';
+  updateStartBtn();
+  toast('stopped — start again whenever you\'re ready');
 }
 
 /* ---------------- wiring ---------------- */
@@ -549,7 +850,8 @@ $('#btnJoin').onclick = async () => {
 };
 
 $('#inCode').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('#btnJoin').click(); });
-$('#btnStart').onclick = startSession;
+$('#btnStart').onclick = () => { if (S.shooting) stopSession(); else startSession(); };
+$('#btnKeepTalk').onclick = () => { screen('booth'); updateStartBtn(); };
 
 $('#btnCopy').onclick = async () => {
   try {
@@ -574,24 +876,84 @@ $('#btnDownload').onclick = () => {
 };
 
 $('#btnAgain').onclick = () => {
+  S.shooting = false;
   resetFrames();
   screen('booth');
-  $('#btnStart').disabled = !(S.dc && S.dc.readyState === 'open');
+  updateStartBtn();
 };
 
-for (const id of ['#btnHome1', '#btnHome2', '#btnHome3']) {
-  $(id).onclick = () => { S.leaving = true; location.href = '/'; };
+$('#btnMic').onclick = toggleMic;
+$('#btnSound').onclick = toggleSound;
+$('#btnGames').onclick = toggleGames;
+$('#btnBoomerang').onclick = downloadBoomerang;
+
+function toggleGames() {
+  S.gamesOn = !S.gamesOn;
+  $('#btnGames').classList.toggle('off', !S.gamesOn);
+  if (!S.gamesOn) { $('#prompt').textContent = ''; S.promptShown = -1; }
+  toast(S.gamesOn ? 'pose prompts on' : 'pose prompts off');
 }
 
-// prefill code from ?c=CODE share links
+// reaction bar
 {
-  const c = (new URLSearchParams(location.search).get('c') || '').toUpperCase();
-  if (CODE_RE.test(c)) {
-    $('#inCode').value = c;
-    $('#inName').focus();
+  const bar = $('#reacts');
+  for (const e of REACTIONS) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'react';
+    b.textContent = e;
+    b.setAttribute('aria-label', 'send reaction');
+    b.onclick = () => sendReact(e);
+    bar.appendChild(b);
+  }
+}
+
+for (const id of ['#btnHome1', '#btnHome2', '#btnHome3']) {
+  $(id).onclick = () => {
+    S.leaving = true;
+    wsSend({ t: 'leave' }); // intentional exit — server tears the room down for both
+    clearSessionMeta();
+    dropStored();
+    location.href = '/';
+  };
+}
+
+$('#btnResumeStrip').onclick = () => screen('strip');
+
+// resume a session across a page refresh (same tab)
+{
+  const urlCode = (new URLSearchParams(location.search).get('c') || '').toUpperCase();
+  const saved = readSessionMeta();
+  const code = CODE_RE.test(urlCode) ? urlCode : (saved && CODE_RE.test(saved.code) ? saved.code : '');
+  const name = saved && saved.name ? saved.name : '';
+  if (code) $('#inCode').value = code;
+  if (name) $('#inName').value = name;
+  if (code && name) {
+    const b = $('#resumeBanner');
+    if (b) b.classList.add('show');
+    connect(name, code); // rejoin the same room automatically
+    restore(code); // pull back any photos captured before the reload
   } else {
     $('#inName').focus();
   }
 }
 
+async function restore(code) {
+  const rec = await loadStored(code);
+  if (!rec) return;
+  if (rec.name) S.name = rec.name;
+  if (rec.peerName) S.peerName = rec.peerName;
+  if (rec.filter) S.filter = rec.filter;
+  if (rec.date) S.sessionDate = new Date(rec.date);
+  if (Array.isArray(rec.own)) rec.own.forEach((b, i) => { if (b) { S.own[i] = b; setThumb('l', i, b); } });
+  if (Array.isArray(rec.peer)) rec.peer.forEach((b, i) => { if (b) { S.peer[i] = b; setThumb('r', i, b); } });
+  if (framesReady()) {
+    await renderStrip();
+    const btn = $('#btnResumeStrip');
+    if (btn) btn.hidden = false;
+  }
+}
+
 buildChips();
+buildPreview();
+updateStartBtn();

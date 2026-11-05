@@ -123,20 +123,18 @@ function onConn(ws) {
     if (!room) return;
     room.peers = room.peers.filter((p) => p !== ws);
     const peer = room.peers[0];
-    if (meta.role === 'offerer') {
-      // The room belongs to the offerer's session — close it for everyone.
+    if (!peer) {
+      // last peer gone — nothing to rejoin
       rooms.delete(meta.code);
-      if (peer) send(peer, { t: 'room-closed' });
-    } else {
-      // Answerer dropped — keep the room so they can rejoin, offerer re-offers.
-      if (peer) {
-        peer.meta.role = 'offerer';
-        send(peer, { t: 'peer-left', rejoinable: true });
-        send(peer, { t: 'paired', peerName: null, role: 'offerer' });
-      } else {
-        rooms.delete(meta.code);
-      }
+      return;
     }
+    // One peer remains — keep the room rejoinable regardless of who dropped.
+    // A page refresh tears down the socket but the survivor can re-offer when the
+    // dropped side rejoins with the same code. Promote the survivor to offerer so
+    // there is always exactly one offerer; the rejoiner comes back as answerer.
+    peer.meta.role = 'offerer';
+    send(peer, { t: 'peer-left', rejoinable: true });
+    send(peer, { t: 'paired', peerName: null, role: 'offerer' });
   });
 }
 
@@ -188,11 +186,31 @@ function handle(ws, m) {
       if (!ws.meta) return;
       const room = rooms.get(ws.meta.code);
       if (!room) return;
-      for (const p of room.peers) send(p, { t: 'scheduled', t0: Number(m.t0), by: ws.meta.name });
+      const rid = Number(m.rid) || 0;
+      for (const p of room.peers) send(p, { t: 'scheduled', t0: Number(m.t0), rid, by: ws.meta.name });
+      break;
+    }
+
+    case 'cancel': {
+      if (!ws.meta) return;
+      const room = rooms.get(ws.meta.code);
+      if (!room) return;
+      const peer = other(room, ws);
+      if (peer) send(peer, { t: 'session-cancel', by: ws.meta.name });
       break;
     }
 
     case 'leave': {
+      // Intentional exit (not a refresh): tear the room down for both sides.
+      const meta = ws.meta;
+      if (meta) {
+        const room = rooms.get(meta.code);
+        if (room) {
+          const peer = room.peers.find((p) => p !== ws);
+          rooms.delete(meta.code);
+          if (peer) send(peer, { t: 'room-closed' });
+        }
+      }
       ws.close();
       break;
     }

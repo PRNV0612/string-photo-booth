@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "string \u2014 pairing to photo strip",
+    "subtitle": "WebSocket signaling, WebRTC media, synced shutters, P2P frame exchange",
+    "output": ".archify/sequence-string-protocol-20261105-132158/string-protocol.html",
+    "column_fit": "spread",
+    "quality_profile": "showcase"
+  },
+  "participants": [
+    {
+      "id": "ana",
+      "type": "frontend",
+      "label": "Ana's browser",
+      "sublabel": "app.js booth"
+    },
+    {
+      "id": "sig",
+      "type": "backend",
+      "label": "Signaling server",
+      "sublabel": "server.js \u00b7 ws only"
+    },
+    {
+      "id": "stun",
+      "type": "external",
+      "label": "STUN",
+      "sublabel": "stun.l.google.com"
+    },
+    {
+      "id": "leo",
+      "type": "frontend",
+      "label": "Leo's browser",
+      "sublabel": "app.js booth"
+    }
+  ],
+  "segments": [
+    {
+      "from": 150,
+      "to": 200,
+      "label": "Pairing over WebSocket"
+    },
+    {
+      "from": 208,
+      "to": 364,
+      "label": "WebRTC negotiation + ICE"
+    },
+    {
+      "from": 372,
+      "to": 476,
+      "label": "Clock sync + schedule"
+    },
+    {
+      "from": 488,
+      "to": 540,
+      "label": "Frame exchange"
+    }
+  ],
+  "messages": [
+    {
+      "id": "join-a",
+      "from": "ana",
+      "to": "sig",
+      "y": 160,
+      "label": "join {name}",
+      "variant": "emphasis"
+    },
+    {
+      "id": "paired",
+      "from": "sig",
+      "to": "ana",
+      "y": 188,
+      "label": "paired(peerName)",
+      "variant": "return"
+    },
+    {
+      "id": "offer",
+      "from": "ana",
+      "to": "leo",
+      "y": 216,
+      "label": "offer SDP",
+      "variant": "security"
+    },
+    {
+      "id": "answer",
+      "from": "leo",
+      "to": "ana",
+      "y": 244,
+      "label": "answer SDP",
+      "variant": "security"
+    },
+    {
+      "id": "ice-a",
+      "from": "ana",
+      "to": "stun",
+      "y": 272,
+      "label": "binding requests",
+      "variant": "default"
+    },
+    {
+      "id": "ice-b",
+      "from": "leo",
+      "to": "stun",
+      "y": 300,
+      "label": "binding requests",
+      "variant": "default"
+    },
+    {
+      "id": "cands",
+      "from": "ana",
+      "to": "leo",
+      "y": 328,
+      "label": "ICE candidates",
+      "variant": "security"
+    },
+    {
+      "id": "dc",
+      "from": "ana",
+      "to": "leo",
+      "y": 356,
+      "label": "DTLS-SRTP media + DataChannel open",
+      "variant": "emphasis"
+    },
+    {
+      "id": "time",
+      "from": "ana",
+      "to": "sig",
+      "y": 384,
+      "label": "time \u00d75 (RTT pings)",
+      "variant": "default"
+    },
+    {
+      "id": "pong",
+      "from": "sig",
+      "to": "ana",
+      "y": 412,
+      "label": "now: server clock",
+      "variant": "return"
+    },
+    {
+      "id": "sched",
+      "from": "ana",
+      "to": "sig",
+      "y": 440,
+      "label": "schedule t0",
+      "variant": "emphasis"
+    },
+    {
+      "id": "t0-b",
+      "from": "sig",
+      "to": "leo",
+      "y": 468,
+      "label": "scheduled t0 (to both)",
+      "variant": "return"
+    },
+    {
+      "id": "frames-a",
+      "from": "ana",
+      "to": "leo",
+      "y": 496,
+      "label": "frame chunks \u00d74 (16 KB)",
+      "variant": "security"
+    },
+    {
+      "id": "frames-b",
+      "from": "leo",
+      "to": "ana",
+      "y": 524,
+      "label": "frame chunks \u00d74",
+      "variant": "security"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "ana",
+      "from": 156,
+      "to": 528,
+      "type": "frontend"
+    },
+    {
+      "participant": "sig",
+      "from": 160,
+      "to": 472,
+      "type": "backend"
+    },
+    {
+      "participant": "stun",
+      "from": 268,
+      "to": 332,
+      "type": "external"
+    },
+    {
+      "participant": "leo",
+      "from": 188,
+      "to": 528,
+      "type": "frontend"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Server trust boundary",
+      "items": [
+        "Server relays join codes, opaque SDP/ICE blobs, clock pings and t0",
+        "Video flows peer-to-peer (DTLS-SRTP); photos cross the SCTP DataChannel",
+        "Rooms live in memory only and are destroyed when the offerer leaves"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Sync strategy",
+      "items": [
+        "Each side converts server time t0 to local ms: t0 + i\u00b74s \u2212 offset",
+        "Shutters fire from local timers; countdown is a setTimeout chain",
+        "requestAnimationFrame was rejected \u2014 it freezes in unfocused windows"
+      ]
+    },
+    {
+      "dot": "orange",
+      "title": "Failure guards",
+      "items": [
+        "grabFrame waits for a decodable frame, retries a missed shot 3\u00d7",
+        "Per-frame luminance check rejects camera-occupied black feeds",
+        "visibilitychange presence ping toasts when a partner leaves the screen"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "373ea9c3-bbc8-4366-a17e-25c6aa400e51",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/prnv/Desktop/projects/string/.archify/architecture-string-components-20261105-135444/candidate.json",
+  "output": "/Users/prnv/Desktop/projects/string/.archify/architecture-string-components-20261105-135444/string-architecture.html",
+  "specification": {
+    "sha256": "e57e25f02f4d8bfade55471ddb5b06c6be3b6c8a3ff54eb7a497eb92f5c49c4c",
+    "bytes": 3228
+  },
+  "artifact": {
+    "sha256": "b0ae9d29d5e5349a98c67aedcb5f679f31b357d2b3cfde496536d381f2872368",
+    "bytes": 837837
+  }
+}

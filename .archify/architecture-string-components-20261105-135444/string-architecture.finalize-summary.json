@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/prnv/Desktop/projects/string/.archify/architecture-string-components-20261105-135444/candidate.json",
+    "sha256": "e57e25f02f4d8bfade55471ddb5b06c6be3b6c8a3ff54eb7a497eb92f5c49c4c",
+    "bytes": 3228
+  },
+  "artifact": {
+    "path": "/Users/prnv/Desktop/projects/string/.archify/architecture-string-components-20261105-135444/string-architecture.html",
+    "sha256": "b0ae9d29d5e5349a98c67aedcb5f679f31b357d2b3cfde496536d381f2872368",
+    "bytes": 837837
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/prnv/Desktop/projects/string/.archify/architecture-string-components-20261105-135444/string-architecture.finalize.json",
+    "summaryReceipt": "/Users/prnv/Desktop/projects/string/.archify/architecture-string-components-20261105-135444/string-architecture.finalize-summary.json",
+    "browserCheckReceipt": "/Users/prnv/Desktop/projects/string/.archify/architecture-string-components-20261105-135444/string-architecture.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-05T09:22:39.556Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 2359,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

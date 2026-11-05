@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "string — components and trust boundaries",
+    "subtitle": "the server routes introductions; the couple owns every pixel",
+    "output": ".archify/architecture-string-components-20261105-135444/string-architecture.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "ana", "type": "frontend", "label": "Partner A", "sublabel": "browser booth", "pos": [40, 260], "size": [140, 64], "tag": "getUserMedia + Canvas" },
+    { "id": "leo", "type": "frontend", "label": "Partner B", "sublabel": "browser booth", "pos": [900, 260], "size": [140, 64], "tag": "getUserMedia + Canvas" },
+    { "id": "sig", "type": "backend", "label": "server.js", "sublabel": "static + ws signaling", "pos": [465, 80], "size": [150, 64] },
+    { "id": "stun", "type": "external", "label": "STUN", "sublabel": "ICE reflexive addrs", "pos": [465, 450], "size": [150, 60] },
+    { "id": "dc", "type": "security", "label": "DataChannel", "sublabel": "ordered · chunked 16 KB", "pos": [465, 262], "size": [150, 60] }
+  ],
+  "boundaries": [
+    { "kind": "security-group", "label": "signaling only — cannot see media", "wraps": ["sig"] },
+    { "kind": "region", "label": "end-to-end encrypted peer zone", "wraps": ["ana", "dc", "leo"] }
+  ],
+  "connections": [
+    { "id": "a-sig", "from": "ana", "to": "sig", "label": "WSS join · signal · time · t0", "variant": "default", "fromSide": "top", "toSide": "left", "via": [[110, 112], [465, 112]] },
+    { "id": "b-sig", "from": "leo", "to": "sig", "label": "WSS join · signal", "variant": "default", "fromSide": "top", "toSide": "right", "via": [[970, 112], [615, 112]] },
+    { "id": "a-stun", "from": "ana", "to": "stun", "label": "binding", "variant": "dashed", "fromSide": "bottom", "toSide": "left", "via": [[110, 480], [465, 480]] },
+    { "id": "b-stun", "from": "leo", "to": "stun", "label": "binding", "variant": "dashed", "fromSide": "bottom", "toSide": "right", "via": [[970, 480], [615, 480]] },
+    { "id": "a-dc", "from": "ana", "to": "dc", "label": "video + frames", "variant": "security", "fromSide": "right", "toSide": "left" },
+    { "id": "dc-b", "from": "dc", "to": "leo", "label": "DTLS-SRTP · SCTP", "variant": "security", "fromSide": "right", "toSide": "left" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Transport choices",
+      "items": [
+        "WebSocket for tiny, ordered control messages — trivially auditable",
+        "WebRTC for bulk real-time media; STUN for NAT traversal",
+        "TURN is the documented escape hatch for symmetric NATs"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "What the server holds",
+      "items": [
+        "In-memory room map: code → two sockets, names, roles",
+        "Opaque SDP/ICE relay, clock replies, one t0 timestamp",
+        "Nothing persisted; rooms die when the offerer leaves"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "What never leaves devices",
+      "items": [
+        "Live video (DTLS-SRTP end-to-end)",
+        "Captured JPEGs, crossing only the SCTP DataChannel",
+        "Strip rendering and filter math — pure client-side Canvas 2D"
+      ]
+    }
+  ]
+}

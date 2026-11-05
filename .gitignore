@@ -1,0 +1,8 @@
+# Dependencies (reinstall with `npm install`)
+node_modules/
+
+# Graphify build cache
+graphify-out/cache/
+
+# macOS cruft
+.DS_Store

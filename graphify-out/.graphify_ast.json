@@ -1,0 +1,2091 @@
+{
+  "nodes": [
+    {
+      "id": "package",
+      "label": "package.json",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "package_name",
+      "label": "name",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L2",
+      "_origin": "ast"
+    },
+    {
+      "id": "package_version",
+      "label": "version",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "package_private",
+      "label": "private",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L4",
+      "_origin": "ast"
+    },
+    {
+      "id": "package_description",
+      "label": "description",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "package_main",
+      "label": "main",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L7",
+      "_origin": "ast"
+    },
+    {
+      "id": "package_scripts_start",
+      "label": "start",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L8",
+      "_origin": "ast"
+    },
+    {
+      "id": "package_dependencies",
+      "label": "dependencies",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "package_dependencies_ws",
+      "label": "ws@^8.18.0",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
+      "id": "ref_ws",
+      "label": "ws",
+      "file_type": "concept",
+      "source_file": "package.json",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
+      "id": "package_engines",
+      "label": "engines",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L13",
+      "_origin": "ast"
+    },
+    {
+      "id": "package_engines_node",
+      "label": "node",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app",
+      "label": "app.js",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_ice",
+      "label": "ICE",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_s",
+      "label": "S",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_screen",
+      "label": "screen()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L25",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_toast",
+      "label": "toast()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L30",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_wssend",
+      "label": "wsSend()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L38",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_setstatus",
+      "label": "setStatus()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L42",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_gencode",
+      "label": "genCode()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L48",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_ensurecam",
+      "label": "ensureCam()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L57",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_connect",
+      "label": "connect()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L75",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_onmsg",
+      "label": "onMsg()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L92",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_teardownpc",
+      "label": "teardownPC()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L178",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_setuppc",
+      "label": "setupPC()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L185",
+      "_callable": true,
+      "metadata": {
+        "unresolved_calls": [
+          {
+            "callee": "addTrack",
+            "receiver_type": "RTCPeerConnection",
+            "lang": "typescript",
+            "line": "L189",
+            "file": "public/app.js"
+          },
+          {
+            "callee": "createDataChannel",
+            "receiver_type": "RTCPeerConnection",
+            "lang": "typescript",
+            "line": "L207",
+            "file": "public/app.js"
+          },
+          {
+            "callee": "createOffer",
+            "receiver_type": "RTCPeerConnection",
+            "lang": "typescript",
+            "line": "L208",
+            "file": "public/app.js"
+          },
+          {
+            "callee": "setLocalDescription",
+            "receiver_type": "RTCPeerConnection",
+            "lang": "typescript",
+            "line": "L209",
+            "file": "public/app.js"
+          }
+        ]
+      },
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_setupdc",
+      "label": "setupDC()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L214",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_b64enc",
+      "label": "b64enc()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L223",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_b64dec",
+      "label": "b64dec()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L228",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_sendframe",
+      "label": "sendFrame()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L235",
+      "_callable": true,
+      "metadata": {
+        "unresolved_calls": [
+          {
+            "callee": "subarray",
+            "receiver_type": "Uint8Array",
+            "lang": "typescript",
+            "line": "L242",
+            "file": "public/app.js"
+          }
+        ]
+      },
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_onframemsg",
+      "label": "onFrameMsg()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L247",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_handletime",
+      "label": "handleTime()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L272",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_syncclock",
+      "label": "syncClock()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L281",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_syncclock_finish",
+      "label": "finish()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L284",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_syncnow",
+      "label": "syncNow()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L307",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_startsession",
+      "label": "startSession()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L309",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_runsession",
+      "label": "runSession()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L325",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_videoready",
+      "label": "videoReady()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L355",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_waitframe",
+      "label": "waitFrame()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L359",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_grabframe",
+      "label": "grabFrame()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L376",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_capture",
+      "label": "capture()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L403",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_endsession",
+      "label": "endSession()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L428",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_giveupsession",
+      "label": "giveUpSession()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L434",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_flash",
+      "label": "flash()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L442",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_shutter",
+      "label": "shutter()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L449",
+      "_callable": true,
+      "metadata": {
+        "unresolved_calls": [
+          {
+            "callee": "getChannelData",
+            "receiver_type": "Uint8Array",
+            "lang": "typescript",
+            "line": "L454",
+            "file": "public/app.js"
+          }
+        ]
+      },
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_framesready",
+      "label": "framesReady()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L470",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_checkcomplete",
+      "label": "checkComplete()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L474",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_renderstrip",
+      "label": "renderStrip()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L482",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_resetframes",
+      "label": "resetFrames()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L496",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_app_buildchips",
+      "label": "buildChips()",
+      "file_type": "code",
+      "source_file": "public/app.js",
+      "source_location": "L509",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "public_strip",
+      "label": "strip.js",
+      "file_type": "code",
+      "source_file": "public/strip.js",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "public_strip_strip",
+      "label": "Strip",
+      "file_type": "code",
+      "source_file": "public/strip.js",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "server",
+      "label": "server.js",
+      "file_type": "code",
+      "source_file": "server.js",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "server_http",
+      "label": "http",
+      "file_type": "code",
+      "source_file": "server.js",
+      "source_location": "L7",
+      "_origin": "ast"
+    },
+    {
+      "id": "server_https",
+      "label": "https",
+      "file_type": "code",
+      "source_file": "server.js",
+      "source_location": "L8",
+      "_origin": "ast"
+    },
+    {
+      "id": "server_fs",
+      "label": "fs",
+      "file_type": "code",
+      "source_file": "server.js",
+      "source_location": "L9",
+      "_origin": "ast"
+    },
+    {
+      "id": "server_path",
+      "label": "path",
+      "file_type": "code",
+      "source_file": "server.js",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "server_crypto",
+      "label": "crypto",
+      "file_type": "code",
+      "source_file": "server.js",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
+      "id": "server_websocketserver",
+      "label": "{ WebSocketServer }",
+      "file_type": "code",
+      "source_file": "server.js",
+      "source_location": "L12",
+      "_origin": "ast"
+    },
+    {
+      "id": "server_port",
+      "label": "PORT",
+      "file_type": "code",
+      "source_file": "server.js",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "server_pub",
+      "label": "PUB",
+      "file_type": "code",
+      "source_file": "server.js",
+      "source_location": "L16",
+      "_origin": "ast"
+    },
+    {
+      "id": "server_rooms",
+      "label": "rooms",
+      "file_type": "code",
+      "source_file": "server.js",
+      "source_location": "L21",
+      "_origin": "ast"
+    },
+    {
+      "id": "server_makecode",
+      "label": "makeCode()",
+      "file_type": "code",
+      "source_file": "server.js",
+      "source_location": "L23",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "server_other",
+      "label": "other()",
+      "file_type": "code",
+      "source_file": "server.js",
+      "source_location": "L30",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "server_send",
+      "label": "send()",
+      "file_type": "code",
+      "source_file": "server.js",
+      "source_location": "L34",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "server_mime",
+      "label": "MIME",
+      "file_type": "code",
+      "source_file": "server.js",
+      "source_location": "L39",
+      "_origin": "ast"
+    },
+    {
+      "id": "server_servestatic",
+      "label": "serveStatic()",
+      "file_type": "code",
+      "source_file": "server.js",
+      "source_location": "L50",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "server_wss",
+      "label": "wss",
+      "file_type": "code",
+      "source_file": "server.js",
+      "source_location": "L93",
+      "_origin": "ast"
+    },
+    {
+      "id": "server_onconn",
+      "label": "onConn()",
+      "file_type": "code",
+      "source_file": "server.js",
+      "source_location": "L104",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "server_handle",
+      "label": "handle()",
+      "file_type": "code",
+      "source_file": "server.js",
+      "source_location": "L143",
+      "_callable": true,
+      "_origin": "ast"
+    }
+  ],
+  "edges": [
+    {
+      "source": "package",
+      "target": "package_name",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "package",
+      "target": "package_version",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "package",
+      "target": "package_private",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "package",
+      "target": "package_description",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "package",
+      "target": "package_main",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "package",
+      "target": "package_scripts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "package_scripts",
+      "target": "package_scripts_start",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "package",
+      "target": "package_dependencies",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "package_dependencies",
+      "target": "package_dependencies_ws",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "package",
+      "target": "ref_ws",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "context": "import",
+      "_origin": "ast"
+    },
+    {
+      "source": "package_dependencies_ws",
+      "target": "ref_ws",
+      "relation": "declares",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "package",
+      "target": "package_engines",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "package_engines",
+      "target": "package_engines_node",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_ice",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_s",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_screen",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L25",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_toast",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L30",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_wssend",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L38",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_setstatus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L42",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_gencode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L48",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_ensurecam",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L57",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_connect",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L75",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_onmsg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L92",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_teardownpc",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L178",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_setuppc",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L185",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_setupdc",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L214",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_b64enc",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L223",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_b64dec",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L228",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_sendframe",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L235",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_onframemsg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L247",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_handletime",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L272",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_syncclock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L281",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_syncclock",
+      "target": "public_app_syncclock_finish",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L284",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_syncnow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L307",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_startsession",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L309",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_runsession",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L325",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_videoready",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L355",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_waitframe",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L359",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_grabframe",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L376",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_capture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L403",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_endsession",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L428",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_giveupsession",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L434",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_flash",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L442",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_shutter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L449",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_framesready",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L470",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_checkcomplete",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L474",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_renderstrip",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L482",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_resetframes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L496",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app",
+      "target": "public_app_buildchips",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L509",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_ensurecam",
+      "target": "public_app_toast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L68",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_connect",
+      "target": "public_app_wssend",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L80",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_connect",
+      "target": "public_app_onmsg",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L84",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_connect",
+      "target": "public_app_toast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L88",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_onmsg",
+      "target": "public_app_screen",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L97",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_onmsg",
+      "target": "public_app_setstatus",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L107",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_onmsg",
+      "target": "public_app_teardownpc",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L109",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_onmsg",
+      "target": "public_app_ensurecam",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L115",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_onmsg",
+      "target": "public_app_setuppc",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L117",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_onmsg",
+      "target": "public_app_wssend",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L130",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_onmsg",
+      "target": "public_app_handletime",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L142",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_onmsg",
+      "target": "public_app_runsession",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L147",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_onmsg",
+      "target": "public_app_toast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L153",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_onmsg",
+      "target": "public_app_connect",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L166",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_onmsg",
+      "target": "public_app_gencode",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L166",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_teardownpc",
+      "target": "public_app_resetframes",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L182",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_setuppc",
+      "target": "public_app_teardownpc",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L186",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_setuppc",
+      "target": "public_app_wssend",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L192",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_setuppc",
+      "target": "public_app_setupdc",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L195",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_setuppc",
+      "target": "public_app_setstatus",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L198",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_setuppc",
+      "target": "public_app_toast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L202",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_setupdc",
+      "target": "public_app_onframemsg",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L218",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_sendframe",
+      "target": "public_app_b64enc",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L242",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_onframemsg",
+      "target": "public_app_toast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L252",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_onframemsg",
+      "target": "public_app_b64dec",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L258",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_onframemsg",
+      "target": "public_app_checkcomplete",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L264",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_syncclock",
+      "target": "public_app_syncclock_finish",
+      "relation": "indirect_call",
+      "context": "collection",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "public/app.js",
+      "source_location": "L283",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_syncclock",
+      "target": "public_app_wssend",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L301",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_startsession",
+      "target": "public_app_toast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L311",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_startsession",
+      "target": "public_app_grabframe",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L314",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_startsession",
+      "target": "public_app_syncclock",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L321",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_startsession",
+      "target": "public_app_wssend",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L322",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_startsession",
+      "target": "public_app_syncnow",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L322",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_runsession",
+      "target": "public_app_resetframes",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L327",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_runsession",
+      "target": "public_app_screen",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L329",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_runsession",
+      "target": "public_app_capture",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L333",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_runsession",
+      "target": "public_app_syncnow",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L339",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_waitframe",
+      "target": "public_app_videoready",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L360",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_grabframe",
+      "target": "public_app_waitframe",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L378",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_capture",
+      "target": "public_app_grabframe",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L406",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_capture",
+      "target": "public_app_toast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L408",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_capture",
+      "target": "public_app_capture",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L411",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_capture",
+      "target": "public_app_giveupsession",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L414",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_capture",
+      "target": "public_app_flash",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L419",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_capture",
+      "target": "public_app_shutter",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L420",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_capture",
+      "target": "public_app_sendframe",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L421",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_capture",
+      "target": "public_app_endsession",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L423",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_capture",
+      "target": "public_app_checkcomplete",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L424",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_giveupsession",
+      "target": "public_app_endsession",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L435",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_giveupsession",
+      "target": "public_app_toast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L436",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_checkcomplete",
+      "target": "public_app_framesready",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L475",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_checkcomplete",
+      "target": "public_app_screen",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L477",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_checkcomplete",
+      "target": "public_app_renderstrip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L478",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_buildchips",
+      "target": "public_app_framesready",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L520",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_app_buildchips",
+      "target": "public_app_renderstrip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "public/app.js",
+      "source_location": "L520",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "public_strip",
+      "target": "public_strip_strip",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "public/strip.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "ref_http",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_http",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "ref_https",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_https",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "ref_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_fs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "ref_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_path",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "ref_crypto",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_crypto",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "ref_ws",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_websocketserver",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_port",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_pub",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_rooms",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_makecode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L23",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_other",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L30",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_send",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L34",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_mime",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L39",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_servestatic",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L50",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_wss",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L93",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_onconn",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L104",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_handle",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L143",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_onconn",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L101",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server_onconn",
+      "target": "server_handle",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L116",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server_onconn",
+      "target": "server_send",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L129",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server_handle",
+      "target": "server_makecode",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L149",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server_handle",
+      "target": "server_send",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L150",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server_handle",
+      "target": "server_other",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "server.js",
+      "source_location": "L175",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "server",
+      "target": "server_servestatic",
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "server.js",
+      "source_location": "L85",
+      "weight": 1.0,
+      "_origin": "ast"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "failed_sources": [],
+  "skipped_sources": [],
+  "extracted_sources": [
+    "/Users/prnv/Desktop/projects/string/package.json",
+    "/Users/prnv/Desktop/projects/string/public/app.js",
+    "/Users/prnv/Desktop/projects/string/public/strip.js",
+    "/Users/prnv/Desktop/projects/string/server.js"
+  ]
+}

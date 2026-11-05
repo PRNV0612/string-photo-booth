@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "sequence",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/prnv/Desktop/projects/string/.archify/sequence-string-protocol-20261105-132158/candidate.json",
+    "sha256": "7970dd5c05a7170dbf525b71cb0b640110c62ab9dae87ff99d45a2308e2a229d",
+    "bytes": 4898
+  },
+  "artifact": {
+    "path": "/Users/prnv/Desktop/projects/string/.archify/sequence-string-protocol-20261105-132158/string-protocol.html",
+    "sha256": "60ff6a497c9f1f53ed9417ed84147c7db47246a8fa739518674a439482ef071e",
+    "bytes": 839009
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/prnv/Desktop/projects/string/.archify/sequence-string-protocol-20261105-132158/string-protocol.finalize.json",
+    "summaryReceipt": "/Users/prnv/Desktop/projects/string/.archify/sequence-string-protocol-20261105-132158/string-protocol.finalize-summary.json",
+    "browserCheckReceipt": "/Users/prnv/Desktop/projects/string/.archify/sequence-string-protocol-20261105-132158/string-protocol.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-05T09:22:39.556Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 2018,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

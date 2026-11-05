@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "0bd8b3b9-01d1-4784-9bdd-7d5a6837e42b",
+  "status": "current",
+  "command": "deliver",
+  "type": "sequence",
+  "input": "/Users/prnv/Desktop/projects/string/.archify/sequence-string-protocol-20261105-132158/candidate.json",
+  "output": "/Users/prnv/Desktop/projects/string/.archify/sequence-string-protocol-20261105-132158/string-protocol.html",
+  "specification": {
+    "sha256": "7970dd5c05a7170dbf525b71cb0b640110c62ab9dae87ff99d45a2308e2a229d",
+    "bytes": 4898
+  },
+  "artifact": {
+    "sha256": "60ff6a497c9f1f53ed9417ed84147c7db47246a8fa739518674a439482ef071e",
+    "bytes": 839009
+  }
+}

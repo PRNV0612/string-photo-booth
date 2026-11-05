@@ -1,0 +1,39 @@
+{
+  "files": {
+    "code": [
+      "/Users/prnv/Desktop/projects/string/package.json",
+      "/Users/prnv/Desktop/projects/string/public/app.js",
+      "/Users/prnv/Desktop/projects/string/public/strip.js",
+      "/Users/prnv/Desktop/projects/string/server.js"
+    ],
+    "document": [
+      "/Users/prnv/Desktop/projects/string/README.md",
+      "/Users/prnv/Desktop/projects/string/public/index.html"
+    ],
+    "paper": [],
+    "image": [
+      "/Users/prnv/Desktop/projects/string/public/favicon.svg"
+    ],
+    "video": []
+  },
+  "total_files": 7,
+  "total_words": 5400,
+  "needs_graph": false,
+  "warning": "Corpus is ~5,400 words - fits in a single context window. You may not need a graph.",
+  "skipped_sensitive": [],
+  "unclassified": [
+    "/Users/prnv/Desktop/projects/string/.graphifyignore",
+    "/Users/prnv/Desktop/projects/string/public/style.css"
+  ],
+  "walk_errors": [],
+  "ignored": [],
+  "pruned_noise_dirs": [
+    "/Users/prnv/Desktop/projects/string/graphify-out/",
+    "/Users/prnv/Desktop/projects/string/node_modules/"
+  ],
+  "resolution_inputs": [
+    "/Users/prnv/Desktop/projects/string/package-lock.json"
+  ],
+  "graphifyignore_patterns": 2,
+  "scan_root": "/Users/prnv/Desktop/projects/string"
+}

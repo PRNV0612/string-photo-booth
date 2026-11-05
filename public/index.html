@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>string — a photobooth for two, across any distance</title>
+<meta name="description" content="One countdown. Two faces. A photo strip you both keep. string connects your cameras, privately." />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+<header class="brand">
+  <svg viewBox="0 0 148 22" class="mark" aria-hidden="true">
+    <circle cx="9" cy="11" r="4.5"></circle>
+    <circle cx="139" cy="11" r="4.5"></circle>
+    <path d="M9 11 Q 74 27 139 11"></path>
+  </svg>
+  <div class="wordmark">string</div>
+</header>
+
+<main>
+
+  <!-- ============ HOME ============ -->
+  <section id="scr-home" class="scr on">
+    <p class="kicker">a photobooth for two, across any distance</p>
+    <h2 class="promise">
+      Your cameras, the same second.<br />
+      One strip, two keepsakes.
+    </h2>
+
+    <div class="card">
+      <label class="field">
+        <span>your name</span>
+        <input id="inName" maxlength="24" placeholder="e.g. Ana" autocomplete="given-name" />
+      </label>
+
+      <button id="btnCreate" class="btn primary big">Start a booth</button>
+
+      <div class="divider"><span>or join your person</span></div>
+
+      <div class="row">
+        <input id="inCode" maxlength="5" placeholder="CODE" autocapitalize="characters" spellcheck="false" />
+        <button id="btnJoin" class="btn ghost">Join</button>
+      </div>
+    </div>
+
+    <p class="privacy">
+      Video and photos travel <em>device-to-device</em>, end-to-end encrypted.<br />
+      The server only helps you find each other — it never sees a picture.
+    </p>
+  </section>
+
+  <!-- ============ WAITING ============ -->
+  <section id="scr-wait" class="scr">
+    <div class="waitgrid">
+      <div class="selfcam"><video id="waitVid" autoplay playsinline muted></video></div>
+      <div class="card">
+        <p class="kicker">share this with your person</p>
+        <div class="codebox" id="bigCode">·····</div>
+        <div class="row">
+          <input id="shareLink" readonly />
+          <button id="btnCopy" class="btn ghost">Copy link</button>
+        </div>
+        <div class="waiting">
+          <svg viewBox="0 0 148 22" class="mark taut" aria-hidden="true">
+            <circle cx="9" cy="11" r="4.5" class="dot a"></circle>
+            <circle cx="139" cy="11" r="4.5" class="dot b"></circle>
+            <path d="M9 11 Q 74 27 139 11"></path>
+          </svg>
+          <p id="waitMsg">waiting for your person to connect…</p>
+        </div>
+        <button id="btnHome1" class="btn text">← back</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BOOTH ============ -->
+  <section id="scr-booth" class="scr">
+    <div class="topbar">
+      <div class="names" id="boothNames">you &amp; your person</div>
+      <div class="status" id="linkStatus">connecting…</div>
+    </div>
+
+    <div class="stage">
+      <video id="selfVid" autoplay playsinline muted></video>
+      <div class="pip">
+        <video id="peerVid" autoplay playsinline></video>
+        <span id="pipName">your person</span>
+      </div>
+      <div id="countdown"></div>
+      <div id="flash"></div>
+    </div>
+
+    <div class="dock">
+      <div class="filters" id="filterChips"></div>
+      <div class="dots" id="frameDots"><i></i><i></i><i></i><i></i></div>
+      <button id="btnStart" class="btn primary big" disabled>
+        <span class="rec"></span> Start the countdown
+      </button>
+      <p class="hint">stay on this screen while the countdown runs — the camera pauses in hidden tabs</p>
+      <button id="btnHome2" class="btn text">leave the booth</button>
+    </div>
+  </section>
+
+  <!-- ============ STRIP ============ -->
+  <section id="scr-strip" class="scr">
+    <p class="kicker">it's a wrap — yours to keep</p>
+    <div class="stripwrap"><div id="stripHolder"></div></div>
+    <div class="dock">
+      <div class="filters" id="filterChips2"></div>
+      <div class="row center">
+        <button id="btnDownload" class="btn primary">Download strip</button>
+        <button id="btnAgain" class="btn ghost">Shoot again</button>
+        <button id="btnHome3" class="btn text">done</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="toast" class="toast"></div>
+
+<script src="/strip.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>
